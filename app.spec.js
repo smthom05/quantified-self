@@ -5,7 +5,7 @@ var pry = require('pryjs')
 
 
 describe('Foods API', () => {
-  beforeEach(() => {
+  beforeAll(() => {
     shell.exec('npx sequelize db:drop')
     shell.exec('npx sequelize db:create')
     shell.exec('npx sequelize db:migrate')
@@ -51,7 +51,7 @@ describe('Foods API', () => {
   });
 
   describe('Test POST /api/v1/foods', () => {
-    test('should return status 201 and new food item object', async() => {
+    test('should return status 201 and new food item object', async () => {
       const body =  {
                       "food": {
                               "name":  "Name of food here",
@@ -59,14 +59,18 @@ describe('Foods API', () => {
                               }
                     }
 
-      return request(app).post('/api/v1/foods').send(body).then(response => {
-        expect(response.status).toBe(201)
-        expect(response.body).toBeInstanceOf(Object)
-        expect(Object.keys(response.body)).toContain('id')
-        expect(Object.keys(response.body)).toContain('name')
-        expect(Object.keys(response.body)).toContain('calories')
-      })
-    })
-  });
-
+      try {
+       await request(app).post('/api/v1/foods').send(body)
+       .then(response => {
+         expect(response.status).toBe(201);
+         expect(response.body).toBeInstanceOf(Object)
+         expect(Object.keys(response.body)).toContain('id')
+         expect(Object.keys(response.body)).toContain('name')
+         expect(Object.keys(response.body)).toContain('calories')
+       })
+      } catch (err) {
+       console.log(`Error ${err}`)
+     }
+   });
+ });
 });

@@ -37,8 +37,7 @@ router.get('/:id', function(req, res) {
 });
 
 // POST new Food
-router.post('/', function(req, res) {
-  eval(pry.it)
+router.post('/', async (req, res) => {
   Food.create({
       name: req.body.food.name,
       calories: req.body.food.calories
