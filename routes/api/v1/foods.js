@@ -36,4 +36,20 @@ router.get('/:id', function(req, res) {
   })
 });
 
+// POST new Food
+router.post('/', async (req, res) => {
+  Food.create({
+      name: req.body.food.name,
+      calories: req.body.food.calories
+  })
+  .then(food => {
+    res.setHeader('Content-Type', 'application/json');
+    res.status(201).send(JSON.stringify(food));
+  })
+  .catch(error => {
+    res.setHeader('Content-Type', 'application/json');
+    res.status(400).send(JSON.stringify({'error': 'Food Not Created'}))
+  })
+});
+
 module.exports = router;
