@@ -51,5 +51,27 @@ router.post('/', async (req, res) => {
     res.status(400).send(JSON.stringify({'error': 'Food Not Created'}))
   })
 });
+//Update food
+router.patch('/:id', async (req, res) => {
+  Food.findOne({
+    where: {
+      id: req.params.id
+    }
+  })
+  .then((food)=> {
+    return food.update({
+      calories: req.body.food.calories,
+      name: req.body.food.name
+    })
+  })
+  .then(foodUpdated => {
+    res.setHeader('Content-Type', 'application/json');
+    res.status(201).send(JSON.stringify(foodUpdated));
+  })
+  .catch(error => {
+    res.setHeader('Content-Type', 'application/json');
+    res.status(400).send(JSON.stringify({'error': 'Food Not Created'}))
+  })
+});
 
 module.exports = router;
