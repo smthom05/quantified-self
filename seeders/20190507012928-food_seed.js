@@ -30,6 +30,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('Foods', null, {});
+    return queryInterface.bulkDelete('Food', null, {});
   }
 };
