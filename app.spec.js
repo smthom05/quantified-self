@@ -7,6 +7,7 @@ var pry = require('pryjs')
 describe('Foods API', () => {
   beforeEach(() => {
     shell.exec('npx sequelize db:migrate:undo:all')
+    shell.exec('npx sequelize db:seed:undo:all')
     shell.exec('npx sequelize db:create')
     shell.exec('npx sequelize db:migrate')
     shell.exec('npx sequelize db:seed:all')
@@ -33,8 +34,6 @@ describe('Foods API', () => {
         expect(Object.keys(response.body[0])).toContain('id'),
         expect(Object.keys(response.body[0])).toContain('name'),
         expect(Object.keys(response.body[0])).toContain('calories')
-        // expect(Object.keys(response.body[0])).toNotContain('createdAt'),
-        // expect(Object.keys(response.body[0])).toNotContain('updatedAt')
       })
     });
   })
@@ -42,6 +41,7 @@ describe('Foods API', () => {
   describe('Test /api/v1/foods/1', () => {
     test('should return status 200 and specific food object', () => {
       return request(app).get('/api/v1/foods/1').then(response => {
+
         expect(response.status).toBe(200)
         expect(response.body).toBeInstanceOf(Object)
         expect(Object.keys(response.body)).toContain('id')

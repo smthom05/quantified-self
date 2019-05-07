@@ -33,7 +33,7 @@ router.get('/:id', function(req, res) {
       res.setHeader('Content-Type', 'application/json');
       res.status(404).send(JSON.stringify({'error': 'Food Not Found'}))
     }
-  });
+  })
 });
 
 module.exports = router;
