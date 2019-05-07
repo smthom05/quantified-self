@@ -8,7 +8,8 @@ router.get('/:id', function(req, res) {
   Food.findOne({
     where: {
       id: req.params.id
-    }
+    },
+    attributes: ['id', 'name', 'calories']
   })
   .then(food => {
     if (food !== null) {
