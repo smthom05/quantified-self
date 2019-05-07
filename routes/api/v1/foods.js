@@ -48,7 +48,7 @@ router.post('/', async (req, res) => {
   })
   .catch(error => {
     res.setHeader('Content-Type', 'application/json');
-    res.status(401).send(JSON.stringify({'error': 'Food Not Created'}))
+    res.status(400).send(JSON.stringify({'error': 'Food Not Created'}))
   })
 });
 
