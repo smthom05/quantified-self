@@ -5,6 +5,7 @@ var pry = require('pryjs')
 
 describe('Foods API', () => {
   beforeEach(() => {
+    shell.exec('npx sequelize db:drop')
     shell.exec('npx sequelize db:migrate:undo:all')
     shell.exec('npx sequelize db:create')
     shell.exec('npx sequelize db:migrate')

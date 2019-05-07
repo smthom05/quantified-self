@@ -5,7 +5,7 @@ var pry = require('pryjs');
 
 // GET specific food
 router.get('/:id', function(req, res) {
-  Food.findOne({
+  Foods.findOne({
     where: {
       id: req.params.id
     }
