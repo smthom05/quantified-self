@@ -5,7 +5,6 @@ var pry = require('pryjs')
 
 describe('Foods API', () => {
   beforeEach(() => {
-    shell.exec('npx sequelize db:drop')
     shell.exec('npx sequelize db:migrate:undo:all')
     shell.exec('npx sequelize db:create')
     shell.exec('npx sequelize db:migrate')
@@ -16,6 +15,10 @@ describe('Foods API', () => {
     test('should return status 200 and specific food object', () => {
       return request(app).get('/api/v1/foods/1').then(response => {
         expect(response.status).toBe(200)
+        expect(response.body).toBeInstanceOf(Object)
+        expect(Object.keys(response.body)).toContain('id')
+        expect(Object.keys(response.body)).toContain('name')
+        expect(Object.keys(response.body)).toContain('calories')
       })
     })
   })
