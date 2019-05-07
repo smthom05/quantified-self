@@ -12,7 +12,7 @@ router.get('/:id', function(req, res) {
     attributes: ['id', 'name', 'calories']
   })
   .then(food => {
-    if (food !== null) {
+    if (food) {
       res.setHeader('Content-Type', 'application/json');
       res.status(200).send(JSON.stringify(food));
     } else {
