@@ -49,4 +49,24 @@ describe('Foods API', () => {
       })
     })
   });
+
+  describe('Test POST /api/v1/foods', () => {
+    test('should return status 201 and new food item object', async() => {
+      const body =  {
+                      "food": {
+                              "name":  "Name of food here",
+                              "calories": "Calories here"
+                              }
+                    }
+
+      return request(app).post('/api/v1/foods').send(body).then(response => {
+        expect(response.status).toBe(201)
+        expect(response.body).toBeInstanceOf(Object)
+        expect(Object.keys(response.body)).toContain('id')
+        expect(Object.keys(response.body)).toContain('name')
+        expect(Object.keys(response.body)).toContain('calories')
+      })
+    })
+  });
+
 });
