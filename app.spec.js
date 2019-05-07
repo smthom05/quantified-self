@@ -10,7 +10,7 @@ describe('Foods API', () => {
     shell.exec('npx sequelize db:create')
     shell.exec('npx sequelize db:migrate')
     shell.exec('npx sequelize db:seed:all')
-  })
+  });
 
   describe ('Test route path', () => {
     test('should return a 200 status', ()=> {
@@ -18,6 +18,9 @@ describe('Foods API', () => {
         expect(response.status).toBe(200)
       })
     })
+  });
+
+  describe('Test Foods Index Path', () => {
     test('should return a 200 status when requesting get api/v1/foods', ()=> {
       return request(app).get('/api/v1/foods').then(response => {
         expect(response.status).toBe(200)
@@ -26,13 +29,15 @@ describe('Foods API', () => {
 
     test('should return all the foods wheh  get api/v1/foods', ()=> {
       return request(app).get('/api/v1/foods').then(response => {
-        expect(response.body.length).toBe(4),
+        expect(response.body.length).toBe(7),
         expect(Object.keys(response.body[0])).toContain('id'),
         expect(Object.keys(response.body[0])).toContain('name'),
         expect(Object.keys(response.body[0])).toContain('calories')
         // expect(Object.keys(response.body[0])).toNotContain('createdAt'),
         // expect(Object.keys(response.body[0])).toNotContain('updatedAt')
-  });
+      })
+    });
+  })
 
   describe('Test /api/v1/foods/1', () => {
     test('should return status 200 and specific food object', () => {
@@ -44,5 +49,5 @@ describe('Foods API', () => {
         expect(Object.keys(response.body)).toContain('calories')
       })
     })
-  })
-})
+  });
+});
