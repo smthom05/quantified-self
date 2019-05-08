@@ -68,6 +68,7 @@ describe('Foods API', () => {
        })
     });
   });
+
 // Update food
   describe('Test PATCH /api/v1/foods/1', () => {
     test('should return status 200 and original food object', async () => {
@@ -97,4 +98,33 @@ describe('Foods API', () => {
       })
     });
   });
+
+  // Delete Food
+    describe('Test DELETE /api/v1/foods/1', () => {
+      test('should return status 204', async () => {
+        await request(app).get('/api/v1/foods/1').then(async response => {
+        await expect(response.status).toBe(200),
+        await expect(response.body).toBeInstanceOf(Object),
+        await expect(response.body.name).toBe("Mint"),
+        await expect(response.body.calories).toBe(14)
+        })
+      });
+
+      // Now we Delete
+      test('should return status 201 and success message', async () => {
+        await request(app).delete('/api/v1/foods/1')
+        .then(async response => {
+          await expect(response.status).toBe(201)
+          await expect(response.body.success).toBe("Food Deleted")
+        })
+      });
+
+      test('should return status 400 if food does not exist', async () => {
+        await request(app).delete('/api/v1/foods/1')
+        .then(async response => {
+          await expect(response.status).toBe(400)
+          await expect(response.body.error).toBe("Food Not Found")
+        })
+      });
+    });
 });
