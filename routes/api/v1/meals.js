@@ -5,7 +5,7 @@ var Meal = require('../../../models').Meal;
 var MealFood = require('../../../models').MealFood;
 var pry = require('pryjs');
 
-// Get all meals
+// Meal Index Endpoint
 router.get('/', function (req, res) {
   Meal.findAll({
     attributes: ['id', 'name'],
@@ -21,6 +21,7 @@ router.get('/', function (req, res) {
   })
 })
 
+// Meal Show Endpoint
 router.get('/:id/foods', function (req, res) {
   Meal.findOne({
     where: {
@@ -44,5 +45,34 @@ router.get('/:id/foods', function (req, res) {
   })
 })
 
+// Create MealFood Assocation Endpoint
+router.post('/:meal_id/foods/:food_id', function (req, res) {
+   MealFood.findOrCreate({
+    where: {
+      MealId: req.params.meal_id,
+      FoodId: req.params.food_id
+    },
+    defaults: {
+      MealId: req.params.meal_id,
+      FoodId: req.params.food_id
+    }
+  })
+  .then(mealFood => {
+    return Meal.findOne({
+      where: {
+        id: mealFood[0].MealId
+      },
+        include: [{model:Food, attributes: ['name'], through: { attributes: []}}]
+    })
+    .then(meal => {
+      res.setHeader('Content-Type', 'application/json')
+      res.status(201).send(JSON.stringify({"success": `Successfully added ${meal.Food[meal.Food.length-1].name} to ${meal.name}`}))
+    })
+  })
+  .catch(error => {
+    res.setHeader('Content-Type', 'application/json')
+    res.status(404).send(JSON.stringify({"error": "MealFood Not Created"}))
+  })
+})
 
 module.exports = router;

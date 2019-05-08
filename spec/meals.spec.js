@@ -12,6 +12,7 @@ describe('Meals API', () => {
     shell.exec('npx sequelize db:seed:all')
   });
 
+  // Meal Index Endpoint
   describe('Test GET /api/v1/meals', () => {
     test('should return a 200 status and all meals with their foods', () => {
       return request(app).get('/api/v1/meals').then(response => {
@@ -26,6 +27,7 @@ describe('Meals API', () => {
     })
   })
 
+  // Specific Meal Show Endpoint
   describe('Test GET /api/v1/meals/1/foods', () => {
     test('should return a 200 status and meal and it\'s foods', () => {
       return request(app).get('/api/v1/meals/1/foods').then(response => {
@@ -43,6 +45,16 @@ describe('Meals API', () => {
       return request(app).get('/api/v1/meals/16/foods').then(response => {
         expect(response.status).toBe(404)
         expect(response.body.error).toBe("Meal not found!!")
+      })
+    })
+  })
+
+  // Create MealFood Association Endpoint
+  describe('Test POST /api/v1/meals/1/foods/7', () => {
+    test('should return a 201 status and success message', () => {
+      return request(app).post('/api/v1/meals/1/foods/7').then(response => {
+        expect(response.status).toBe(201)
+        expect(response.body.success).toBe("Successfully added Yogurt to Breakfast")
       })
     })
   })
