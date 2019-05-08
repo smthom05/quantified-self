@@ -17,6 +17,9 @@ describe('Meals API', () => {
       return request(app).get('/api/v1/meals').then(response => {
         expect(response.status).toBe(200)
         expect(response.body.length).toBe(3)
+        expect(Object.keys(response.body[0].Food[0])).toContain('id')
+        expect(Object.keys(response.body[0].Food[0])).toContain('name')
+        expect(Object.keys(response.body[0].Food[0])).toContain('calories')
         expect(response.body[0].name).toBe("Breakfast")
         expect(response.body[0].Food).toBeInstanceOf(Array)
       })
