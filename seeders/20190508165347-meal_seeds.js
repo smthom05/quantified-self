@@ -2,27 +2,18 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('Food', [{
-      name: 'food1',
-      calories: 50,
+    return queryInterface.bulkInsert('Meals', [{
+      name: 'Breakfast',
       createdAt: new Date(),
       updatedAt: new Date()
     },
     {
-      name: 'food2',
-      calories: 50,
+      name: 'Lunch',
       createdAt: new Date(),
       updatedAt: new Date()
     },
     {
-      name: 'food3',
-      calories: 50,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    },
-    {
-      name: 'food4',
-      calories: 50,
+      name: 'Dinner',
       createdAt: new Date(),
       updatedAt: new Date()
     }
@@ -30,6 +21,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('Food', null, {});
+    return queryInterface.bulkDelete('Meals', null, {});
   }
 };
