@@ -44,7 +44,7 @@ router.post('/', async (req, res) => {
   })
   .then(food => {
     res.setHeader('Content-Type', 'application/json');
-    res.status(201).send(JSON.stringify(food));
+    res.status(201).send(JSON.stringify({"id": food.id, "name": food.name, "calories": food.calories}));
   })
   .catch(error => {
     res.setHeader('Content-Type', 'application/json');
@@ -66,7 +66,7 @@ router.patch('/:id', async (req, res) => {
   })
   .then(foodUpdated => {
     res.setHeader('Content-Type', 'application/json');
-    res.status(201).send(JSON.stringify(foodUpdated));
+    res.status(201).send(JSON.stringify({"id": foodUpdated.id, "name": foodUpdated.name, "calories": foodUpdated.calories}));
   })
   .catch(error => {
     res.setHeader('Content-Type', 'application/json');
