@@ -41,10 +41,10 @@ describe('Foods API', () => {
     test('should return status 200 and specific food object', () => {
       return request(app).get('/api/v1/foods/1').then(response => {
 
-        expect(response.status).toBe(200)
-        expect(response.body).toBeInstanceOf(Object)
-        expect(Object.keys(response.body)).toContain('id')
-        expect(Object.keys(response.body)).toContain('name')
+        expect(response.status).toBe(200),
+        expect(response.body).toBeInstanceOf(Object),
+        expect(Object.keys(response.body)).toContain('id'),
+        expect(Object.keys(response.body)).toContain('name'),
         expect(Object.keys(response.body)).toContain('calories')
       })
     })
@@ -54,23 +54,47 @@ describe('Foods API', () => {
     test('should return status 201 and new food item object', async () => {
       const body =  {
                       "food": {
-                              "name":  "Name of food here",
-                              "calories": "Calories here"
+                              "name":  "Mentos",
+                              "calories": "14"
                               }
                     }
 
-      try {
        await request(app).post('/api/v1/foods').send(body)
-       .then(response => {
-         expect(response.status).toBe(201);
-         expect(response.body).toBeInstanceOf(Object)
-         expect(Object.keys(response.body)).toContain('id')
-         expect(Object.keys(response.body)).toContain('name')
-         expect(Object.keys(response.body)).toContain('calories')
+       .then(async response => {
+         await expect(response.status).toBe(201),
+         await expect(response.body.calories).toBe(14),
+         await expect(response.body.name).toBe("Mentos"),
+         await expect(response.body).toBeInstanceOf(Object)
        })
-      } catch (err) {
-       console.log(`Error ${err}`)
-     }
-   });
- });
+    });
+  });
+// Update food
+  describe('Test PATCH /api/v1/foods/1', () => {
+    test('should return status 200 and original food object', async () => {
+      await request(app).get('/api/v1/foods/1').then(async response => {
+      await expect(response.status).toBe(200),
+      await expect(response.body).toBeInstanceOf(Object),
+      await expect(response.body.name).not.toBe("Mint"),
+      await expect(response.body.calories).not.toBe(14)
+      })
+    });
+
+    //Now we update below
+    test('should return status 200 and updated food item object', async () => {
+      const body =  {
+        "food": {
+          "name":  "Mint",
+          "calories": 14
+        }
+      }
+
+      await request(app).patch('/api/v1/foods/1').send(body)
+      .then(async response => {
+        await expect(response.status).toBe(201),
+        await expect(response.body.calories).toBe(14),
+        await expect(response.body.name).toBe("Mint"),
+        await expect(response.body).toBeInstanceOf(Object)
+      })
+    });
+  });
 });
