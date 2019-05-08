@@ -74,4 +74,26 @@ router.patch('/:id', async (req, res) => {
   })
 });
 
+//Delete food
+router.delete('/:id', (req, res) => {
+  return Food.destroy({
+    where: {
+      id: req.params.id
+    }
+  })
+  .then(food => {
+    if (food) {
+      res.setHeader('Content-Type', 'application/json');
+      res.status(201).send(JSON.stringify({'success': 'Food Deleted'}));
+    } else {
+      res.setHeader('Content-Type', 'application/json');
+      res.status(400).send(JSON.stringify({'error': 'Food Not Found'}))
+    }
+  })
+  .catch(error => {
+    res.setHeader('Content-Type', 'application/json');
+    res.status(400).send({error})
+  })
+});
+
 module.exports = router;
