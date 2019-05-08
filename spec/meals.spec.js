@@ -58,4 +58,18 @@ describe('Meals API', () => {
       })
     })
   })
+  //Delete
+  describe('Test DELETE /api/v1/meals/1/foods/7', () => {
+    test('should return a 204 status', () => {
+      return request(app).delete('/api/v1/meals/1/foods/7').then(response => {
+        expect(response.status).toBe(204)
+      })
+    })
+
+    test('should return a 404 status for non existant mealfood', () => {
+      return request(app).delete('/api/v1/meals/11/foods/71').then(response => {
+        expect(response.status).toBe(404)
+      })
+    })
+  })
 });

@@ -74,5 +74,26 @@ router.post('/:meal_id/foods/:food_id', function (req, res) {
     res.status(404).send(JSON.stringify({"error": "MealFood Not Created"}))
   })
 })
-
+// Delete  MealFood Assocation Endpoint
+router.delete('/:meal_id/foods/:food_id', function (req, res) {
+  MealFood.destroy({
+    where: {
+      MealId: req.params.meal_id,
+      FoodId: req.params.food_id
+    }
+  })
+  .then(mealFood => {
+    if (mealFood) {
+      res.setHeader('Content-Type', 'application/json')
+      res.status(204).send(JSON.stringify({"success": `Successfully Deleted MealFood!!`}))
+    } else {
+      res.setHeader('Content-Type', 'application/json')
+      res.status(404).send(JSON.stringify({"error": `MealFood not found!!`}))
+    }
+  })
+  .catch(error => {
+    res.setHeader('Content-Type', 'application/json')
+    res.status(404).send(JSON.stringify({"error": "MealFood Not Created"}))
+  })
+})
 module.exports = router;
