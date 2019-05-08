@@ -25,4 +25,25 @@ describe('Meals API', () => {
       })
     })
   })
+
+  describe('Test GET /api/v1/meals/1/foods', () => {
+    test('should return a 200 status and meal and it\'s foods', () => {
+      return request(app).get('/api/v1/meals/1/foods').then(response => {
+        expect(response.status).toBe(200)
+        expect(response.body).toBeInstanceOf(Object)
+        expect(response.body.name).toBe("Breakfast")
+        expect(response.body.id).toBe(1)
+        expect(response.body.Food).toBeInstanceOf(Array)
+        expect(Object.keys(response.body.Food[0])).toContain('id')
+        expect(Object.keys(response.body.Food[0])).toContain('name')
+        expect(Object.keys(response.body.Food[0])).toContain('calories')
+      })
+    })
+    test('should return a 404 and error message if meal is not found', () => {
+      return request(app).get('/api/v1/meals/16/foods').then(response => {
+        expect(response.status).toBe(404)
+        expect(response.body.error).toBe("Meal not found!!")
+      })
+    })
+  })
 });
