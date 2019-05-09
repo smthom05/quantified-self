@@ -7,6 +7,8 @@
     "test": "jest"
   },
   "dependencies": {
+    "babel-jest": "^24.8.0",
+    "bcrypt": "^3.0.6",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "dotenv": "^8.0.0",
@@ -14,12 +16,11 @@
     "jest": "^24.8.0",
     "morgan": "~1.9.0",
     "nodemon": "^1.19.0",
+    "nyc": "^14.1.0",
     "pg": "^7.10.0",
+    "pryjs": "^1.0.3",
     "sequelize": "^5.8.5",
     "sequelize-cli": "^5.4.0",
-    "babel-jest": "^24.8.0",
-    "nyc": "^14.1.0",
-    "pryjs": "^1.0.3",
     "shelljs": "^0.8.3",
     "supertest": "^4.0.2"
   },
