@@ -65,8 +65,15 @@ router.post('/:meal_id/foods/:food_id', function (req, res) {
         include: [{model:Food, attributes: ['name'], through: { attributes: []}}]
     })
     .then(meal => {
-      res.setHeader('Content-Type', 'application/json')
-      res.status(201).send(JSON.stringify({"success": `Successfully added ${meal.Food[meal.Food.length-1].name} to ${meal.name}`}))
+      return Food.findOne({
+        where: {
+          id: req.params.food_id
+        }
+      })
+      .then(food => {
+        res.setHeader('Content-Type', 'application/json')
+        res.status(201).send(JSON.stringify({"success": `Successfully added ${food.name} to ${meal.name}`}))
+      })
     })
   })
   .catch(error => {
