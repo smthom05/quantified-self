@@ -9,14 +9,15 @@ describe('Users API', () => {
     shell.exec('npx sequelize db:drop')
     shell.exec('npx sequelize db:create')
     shell.exec('npx sequelize db:migrate')
-    // shell.exec('npx sequelize db:seed:all')
+    shell.exec('npx sequelize db:seed:undo:all')
+    shell.exec('npx sequelize db:seed:all')
   });
 
   // Meal Index Endpoint
   describe('Test POST /api/v1/users', () => {
     test('should return a 201 status', () => {
       var body = {
-                  'email': 'email@email.com',
+                  'email': 'email55@email.com',
                   'password': 'password',
                   'password_confirmation': 'password'
                 };
@@ -29,7 +30,7 @@ describe('Users API', () => {
 
     test('should return a 401 status if passwords do not match', () => {
       var body = {
-                  'email': 'email@email.com',
+                  'email': 'email155@email.com',
                   'password': 'passsssword',
                   'password_confirmation': 'password'
                 };
@@ -42,7 +43,7 @@ describe('Users API', () => {
 
     test('should return a 500 status if email is not unique', () => {
       var body = {
-                  'email': 'email@email.com',
+                  'email': 'email@email1.com',
                   'password': 'password',
                   'password_confirmation': 'password'
                 };
@@ -53,4 +54,19 @@ describe('Users API', () => {
     })
   })
 
-})
+  describe('Test POST /api/v1/users/1/meals/1', () => {
+    test('should return a 201 status and success message', () => {
+      return request(app).post('/api/v1/users/1/meals/1').then(response => {
+        expect(response.status).toBe(201);
+        expect(response.body.success).toBe('UserMeal Successfully Created');
+      })
+    })
+
+    test('should return a 401 status if UserMeal not created', () => {
+      return request(app).post('/api/v1/users/1/meals/122').then(response => {
+        expect(response.status).toBe(401);
+        expect(response.body.error).toBe('UserMeal Not Created');
+      })
+    })
+  });
+});
