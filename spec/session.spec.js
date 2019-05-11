@@ -6,7 +6,6 @@ var User = require('../models').User;
 
 describe('Sessions API', () => {
   beforeAll(() => {
-    shell.exec('npx sequelize db:drop')
     shell.exec('npx sequelize db:create')
     shell.exec('npx sequelize db:migrate:undo:all')
     shell.exec('npx sequelize db:migrate')
