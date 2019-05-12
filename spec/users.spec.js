@@ -76,7 +76,6 @@ describe('Users API', () => {
       var body = {"date": "2019-05-11"};
       return request(app).get('/api/v1/users/1/dailyCalories').send(body).then(response => {
         expect(response.status).toBe(200);
-        expect(response.body).toBe('This is yo info');
         expect(response.body).toBeInstanceOf(Object);
       })
     })

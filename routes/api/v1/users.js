@@ -61,14 +61,6 @@ router.get('/:user_id/dailyCalories', function(req, res) {
     return user.getDailyCalorieInfo(req.body.date)
   })
   .then(result => {
-    // for (var i = 0; i < result.length; i++) {
-    //   eval(pry.it)
-    //   try{
-    //     result[i]["food"+ i] = await result[i].getFood()
-    //   }catch(error){
-    //     throw new Error(error.message)
-    //   }
-    // }
     res.setHeader('Content-Type', 'application/json');
     res.status(200).send(JSON.stringify({result}));
   })
