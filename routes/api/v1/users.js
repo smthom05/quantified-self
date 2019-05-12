@@ -15,7 +15,7 @@ router.post('/', function(req, res){
      })
      .then(user => {
       res.setHeader("Content-Type", "application/json");
-      res.setHeader("Access-Control-Allow-Origin": "http://localhost:3000");
+      res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
       res.status(201).send(JSON.stringify({"success": 'Account Created'}));
      })
      .catch(error => {
