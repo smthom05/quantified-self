@@ -69,4 +69,23 @@ describe('Users API', () => {
       })
     })
   });
+
+// Daily Calorie Endpoint
+  describe('Test GET /api/v1/users/1/dailyCalories', () => {
+    test('should return a 200 status and meals object', () => {
+      var body = {"date": "2019-05-11"};
+      return request(app).get('/api/v1/users/1/dailyCalories').send(body).then(response => {
+        expect(response.status).toBe(200);
+        expect(response.body).toBe('This is yo info');
+        expect(response.body).toBeInstanceOf(Object);
+      })
+    })
+
+    test('should return a 401 status if UserMeal not created', () => {
+      return request(app).post('/api/v1/users/1/meals/122').then(response => {
+        expect(response.status).toBe(401);
+        expect(response.body.error).toBe('Daily Calories Not Found');
+      })
+    })
+  });
 });

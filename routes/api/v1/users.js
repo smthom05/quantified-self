@@ -49,4 +49,33 @@ router.post('/:user_id/meals/:meal_id', function(req, res) {
   })
 });
 
+// User's Daily Calories Endpoint
+
+router.get('/:user_id/dailyCalories', function(req, res) {
+  User.findOne({
+    where: {
+      id: req.params.user_id
+    }
+  })
+  .then(user => {
+    return user.getDailyCalorieInfo(req.body.date)
+  })
+  .then(result => {
+    // for (var i = 0; i < result.length; i++) {
+    //   eval(pry.it)
+    //   try{
+    //     result[i]["food"+ i] = await result[i].getFood()
+    //   }catch(error){
+    //     throw new Error(error.message)
+    //   }
+    // }
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).send(JSON.stringify({result}));
+  })
+  .catch(error => {
+   res.setHeader("Content-Type", "application/json");
+   res.status(401).send(JSON.stringify({'error': 'UserMeal Not Created'}));
+  })
+});
+
 module.exports = router;
