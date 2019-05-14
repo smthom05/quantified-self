@@ -27,8 +27,8 @@ router.get('/:id/foods', function (req, res) {
     where: {
       id: req.params.id
     },
-    attributes: ['id', 'name'],
-    include: [{model:Food, attributes: ['id', 'name', 'calories'], through: { attributes: []}}]
+    attributes: ['name'],
+    include: [{model:Food, attributes: ['name', 'calories'], through: { attributes: []}}]
   })
   .then(meal => {
     if (meal) {

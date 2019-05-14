@@ -14,7 +14,7 @@ router.post('/', function(req, res) {
     bcrypt.compare(req.body.password, user.passwordDigest, function(err, response) {
       if (response) {
         res.setHeader("Content-Type", "application/json");
-        res.status(200).send(JSON.stringify({"success": "Login Successful"}));
+        res.status(200).send(JSON.stringify({"user_id": user.id, "success": "Login Successful"}));
       } else {
         res.setHeader("Content-Type", "application/json");
         res.status(401).send(JSON.stringify("Invalid Credentials"));

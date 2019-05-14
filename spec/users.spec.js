@@ -69,4 +69,21 @@ describe('Users API', () => {
       })
     })
   });
+
+// Can Get All User Meals
+  describe('Test GET /api/v1/users/1/meals', () => {
+    test('should return a 200 status and meal objects', () => {
+      return request(app).get('/api/v1/users/1/meals').then(response => {
+        expect(response.status).toBe(200);
+        expect(response.body).toBeInstanceOf(Array);
+      })
+    })
+
+    test('should return a 401 status if request is unsuccessful', () => {
+      return request(app).get('/api/v1/users/144/meals').then(response => {
+        expect(response.status).toBe(404);
+        expect(response.body.error).toBe('Invalid Request');
+      })
+    })
+  });
 });
