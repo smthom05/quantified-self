@@ -18,9 +18,8 @@ router.get('/', function (req, res) {
       res.status(200).send(result)
     })
     .catch(error => {
-      eval(pry.it)
       res.setHeader('Content-Type', 'application/json')
-      res.status(404).send({error: "test"})
+      res.status(404).send({error})
     })
   })
   .catch(error => {
@@ -40,8 +39,10 @@ router.get('/:id/foods', function (req, res) {
   })
   .then(meal => {
     if (meal) {
+      newMeal = meal.toJSON();
+      newMeal['totalCalories'] = meal.getTotalCalories();
       res.setHeader('Content-Type', 'application/json')
-      res.status(200).send(meal)
+      res.status(200).send(newMeal)
     } else {
       res.setHeader('Content-Type', 'application/json')
       res.status(404).send(JSON.stringify({"error": "Meal not found!!"}))
@@ -115,15 +116,12 @@ router.delete('/:meal_id/foods/:food_id', function (req, res) {
 
 function addTotalCalories(meals) {
   return new Promise((resolve, reject) => {
-    var calMeals = []
-    meals.map(meal => {
-      meal.getTotalCalories()
-      .then(totalCal => {
-        meal.toJSON().totalCalories = totalCal
-        calMeals.push(meal)
-      })
+    resolve(meals.map(function(meal) {
+      var r = meal.toJSON()
+      r.totalCalories = meal.getTotalCalories();
+      return r
     })
-    resolve(calMeals)
+    )
   })
 };
 
