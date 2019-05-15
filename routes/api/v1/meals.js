@@ -12,8 +12,16 @@ router.get('/', function (req, res) {
     include: [{model:Food, attributes: ['id', 'name', 'calories'], through: { attributes: []}}]
   })
   .then(meals => {
-    res.setHeader('Content-Type', 'application/json')
-    res.status(200).send(meals)
+    addTotalCalories(meals)
+    .then(result=> {
+      res.setHeader('Content-Type', 'application/json')
+      res.status(200).send(result)
+    })
+    .catch(error => {
+      eval(pry.it)
+      res.setHeader('Content-Type', 'application/json')
+      res.status(404).send({error: "test"})
+    })
   })
   .catch(error => {
     res.setHeader('Content-Type', 'application/json')
@@ -103,4 +111,20 @@ router.delete('/:meal_id/foods/:food_id', function (req, res) {
     res.status(404).send(JSON.stringify({"error": "MealFood Not Created"}))
   })
 })
+
+
+function addTotalCalories(meals) {
+  return new Promise((resolve, reject) => {
+    var calMeals = []
+    meals.map(meal => {
+      meal.getTotalCalories()
+      .then(totalCal => {
+        meal.toJSON().totalCalories = totalCal
+        calMeals.push(meal)
+      })
+    })
+    resolve(calMeals)
+  })
+};
+
 module.exports = router;

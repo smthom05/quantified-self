@@ -9,5 +9,12 @@ module.exports = (sequelize, DataTypes) => {
     Meal.hasMany(models.UserMeal)
     Meal.belongsToMany(models.User, {through: models.UserMeal, foreignKey: 'MealId'});
   };
+  Meal.prototype.getTotalCalories = function() {
+    var calories = 0
+    for (var i=0;i<this.Food.length;i++) {
+      calories += this.Food[i].calories
+    }
+    return calories
+  }
   return Meal;
 };
