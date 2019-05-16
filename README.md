@@ -106,16 +106,15 @@ Quantified Self is a Mod 4 Project at the Turing School of Design. It is designe
 
   _Response_
 
-
-    status: 200
-    body:
-    [
-      {
-         "id": 1,
-         "name": "Banana",
-         "calories": 150
-      }
-    ]
+      status: 200
+      body:
+      [
+        {
+           "id": 1,
+           "name": "Banana",
+           "calories": 150
+        }
+      ]
 
 **Create Food**
 
