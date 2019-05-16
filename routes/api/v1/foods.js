@@ -40,7 +40,7 @@ router.get('/:id', function(req, res) {
 router.post('/', async (req, res) => {
   Food.create({
       name: req.body.food.name,
-      calories: req.body.food.calories
+      calories: Number(req.body.food.calories)
   })
   .then(food => {
     res.setHeader('Content-Type', 'application/json');
