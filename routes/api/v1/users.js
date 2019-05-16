@@ -8,6 +8,7 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 router.post('/', function(req, res){
+  console.log(req.body.name + "manoj")
   if (req.body.password == req.body.password_confirmation) {
     bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
      User.create({
@@ -18,7 +19,7 @@ router.post('/', function(req, res){
      .then(user => {
       res.setHeader("Content-Type", "application/json");
       res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
-      res.status(201).send(JSON.stringify({"success": 'Account Created'}));
+      res.status(201).send(JSON.stringify({"user": user.name, "id": user.id, "success": 'Account Created'}));
      })
      .catch(error => {
       res.setHeader("Content-Type", "application/json");
