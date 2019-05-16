@@ -75,6 +75,7 @@ Quantified Self is a Mod 4 Project at the Turing School of Design. It is designe
 
   - `GET /api/v1/foods`
 
+
   _Response_
 
 
@@ -102,6 +103,7 @@ Quantified Self is a Mod 4 Project at the Turing School of Design. It is designe
 
 - `GET /api/v1/foods/:food_id`
 
+
   _Response_
 
 
@@ -119,7 +121,8 @@ Quantified Self is a Mod 4 Project at the Turing School of Design. It is designe
 
   - `POST /api/v1/foods/`
 
-  _Request_
+
+_Request_
 
 
     body:
@@ -172,6 +175,7 @@ _Response_
 **Delete Food**
 
   - `DELETE /api/v1/foods/:food_id`
+
 
   _Response_
 
@@ -256,6 +260,69 @@ _Response_
           ],
           "totalCalories": 200
       }
+    ]
+
+**Create MealFood Association**
+
+  - `POST /api/v1/meals/:meal_id/foods/:food_id`
+
+
+  _Response_
+
+    status: 201
+
+    {
+      "success": "Successfully added FOODNAME to MEALNAME"
+    }
+
+**DELETE MealFood Association**
+
+  - `DELETE /api/v1/meals/:meal_id/foods/:food_id`
+
+
+  _Response_
+
+    status: 204
+
+    {
+      "success": "Successfully deleted FOODNAME to MEALNAME"
+    }
+
+**Create UserMeal Association**
+
+  - `POST /api/v1/users/:user_id/meals/:meals_id`
+
+
+  _Response_
+
+    status: 201
+
+    {
+      "success": "UserMeal Successfully Created"
+    }
+
+**All Meals For A User**
+
+  - `GET /api/v1/users/:user_id/meals`
+
+
+  _Response_
+
+    status: 200
+    [
+        {
+            "name": "Breakfast",
+            "Food": [
+                {
+                    "name": "Banana",
+                    "calories": 150
+                }
+            ],
+            "UserMeal": {
+                "UserId": 1,
+                "MealId": 1
+            }
+        }
     ]
 
 
