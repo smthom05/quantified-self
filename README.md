@@ -1,7 +1,7 @@
 # Quantified Self
 
 ### Introduction
-Quantified Self is a Mod 4 Project at the Turing School of Design. It is designed to act as an API micro-service for a calorie tracking app. A user can create an account and track their total calories for each meal they've consumed.
+Quantified Self is a Mod 4 Project at the Turing School of Software & Design. It is designed to act as an API micro-service for a calorie tracking app. A user can create an account and track their total calories for each meal they've consumed.
 
 ### Local Setup
 1. `Clone` down this repo
