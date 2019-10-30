@@ -19,7 +19,7 @@
     "nyc": "^14.1.0",
     "pg": "^7.10.0",
     "pryjs": "^1.0.3",
-    "sequelize": "^5.8.5",
+    "sequelize": "^5.15.1",
     "sequelize-cli": "^5.4.0",
     "shelljs": "^0.8.3",
     "supertest": "^4.0.2"
